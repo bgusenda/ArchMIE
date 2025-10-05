@@ -495,6 +495,4 @@ ls -la ArchMIE/
 
 Made with GAY❤️ for the Arch Linux community
 
-[⬆️ Back to Top](#-archmie---arch-linux-"make-it-easy")
-
 </div>
