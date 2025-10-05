@@ -1,4 +1,5 @@
-# 🚀 ArchMIE - Arch Linux Management Interface & Environment
+# 🚀 ArchMIE - Arch Linux "Make It Easy"
+## Management Interface & Environment
 
 <div align="center">
 
@@ -9,7 +10,7 @@
 
 **A modern, user-friendly GUI application for managing Arch Linux system commands with style and security.**
 
-[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Screenshots](#-screenshots) • [Contributing](#-contributing)
+[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Documentation](#-documentation) • [Contributing](#-contributing)
 
 </div>
 
@@ -26,6 +27,7 @@
 - [📝 Logging](#-logging)
 - [📦 Import/Export](#-importexport)
 - [🎨 Theming](#-theming)
+- [📚 Documentation](#-documentation)
 - [🤝 Contributing](#-contributing)
 - [📜 License](#-license)
 - [🐛 Troubleshooting](#-troubleshooting)
@@ -142,19 +144,38 @@ python index.py
 
 ### File Structure
 
+### File Structure
+
 ```
 ArchMIE/
-├── index.py              # Main application entry point
-├── utils.py               # Utility functions (auth, logging, etc.)
-├── theme_variables.py     # Theme management
-├── pages/
-│   ├── commands_page.py   # Command management interface
-│   └── settings_page.py   # Settings and configuration
-├── commands.json          # User's saved commands (auto-generated)
-├── theme.json            # User's theme preferences (auto-generated)
-├── archMIE.log           # Application logs (auto-generated)
-├── LICENSE               # GNU GPL v3.0 License
-└── README.md             # This file
+├── 📁 assets/                # Visual resources
+│   ├── archmie.png          # Application icon (PNG)
+│   └── archmie.svg          # Application icon (SVG)
+├── 📁 docs/                 # Documentation
+│   ├── CHANGELOG.md         # Version history and changes
+│   ├── CODE_OF_CONDUCT.md   # Community guidelines
+│   ├── CONTRIBUTING.md      # Contribution guide
+│   └── RELEASE_GUIDE.md     # Release process guide
+├── 📁 packaging/            # Distribution files
+│   ├── PKGBUILD            # Arch Linux package build
+│   └── archmie.desktop     # Desktop entry file
+├── 📁 pages/               # GUI pages and components
+│   ├── commands_page.py    # Command management interface
+│   └── settings_page.py    # Settings and configuration
+├── 🐍 index.py             # Main application entry point
+├── 🔧 utils.py             # Utility functions (auth, logging, etc.)
+├── 🎨 theme_variables.py   # Theme management
+├── 📜 LICENSE              # GNU GPL v3.0 License
+├── 📖 README.md            # This file
+├── 📁 .github/             # GitHub configuration
+│   ├── ISSUE_TEMPLATE/     # Issue templates
+│   └── workflows/          # CI/CD workflows
+└── 📝 .gitignore           # Git ignore rules
+
+Auto-generated user files (ignored by git):
+├── commands.json           # User's saved commands
+├── theme.json             # User's theme preferences
+└── archMIE.log            # Application logs
 ```
 
 ### Default Commands
@@ -252,6 +273,32 @@ ArchMIE comes with useful pre-configured commands:
 - **📄 theme.json** - Stores user preferences
 - **🔧 JSON Format** - Easy to edit manually if needed
 - **🛡️ Git Ignored** - Personal preferences not tracked
+
+---
+
+## 📚 Documentation
+
+ArchMIE comes with comprehensive documentation to help you get started and contribute effectively:
+
+### 📖 **User Documentation**
+- **[README.md](README.md)** - Complete project overview and usage guide
+- **[CHANGELOG.md](docs/CHANGELOG.md)** - Version history and feature updates
+- **[LICENSE](LICENSE)** - GNU GPL v3.0 license details
+
+### 🤝 **Contributor Documentation**
+- **[CONTRIBUTING.md](docs/CONTRIBUTING.md)** - Detailed contribution guidelines
+- **[CODE_OF_CONDUCT.md](docs/CODE_OF_CONDUCT.md)** - Community standards and behavior
+- **[RELEASE_GUIDE.md](docs/RELEASE_GUIDE.md)** - How to create releases and packages
+
+### 🔧 **Developer Resources**
+- **[GitHub Issues](https://github.com/bgusenda/ArchMIE/issues)** - Bug reports and feature requests
+- **[GitHub Discussions](https://github.com/bgusenda/ArchMIE/discussions)** - Community discussions
+- **[GitHub Actions](https://github.com/bgusenda/ArchMIE/actions)** - CI/CD pipeline status
+
+### 📦 **Packaging**
+- **[PKGBUILD](packaging/PKGBUILD)** - Arch Linux package build script
+- **[Desktop Entry](packaging/archmie.desktop)** - System integration file
+- **[Assets](assets/)** - Icons and visual resources
 
 ---
 
@@ -354,7 +401,7 @@ ls -la ArchMIE/
 - **📚 Documentation** - Check this README thoroughly
 - **🐛 Issues** - [Create a GitHub issue](https://github.com/bgusenda/ArchMIE/issues/new/choose) with details
 - **💬 Discussions** - Use [GitHub Discussions](https://github.com/bgusenda/ArchMIE/discussions) for questions
-- **🤝 Contributing** - See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines
+- **🤝 Contributing** - See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for contribution guidelines
 - **📧 Contact** - Reach out to maintainers directly
 
 ### Community

@@ -36,9 +36,9 @@ package() {
     
     # Install documentation
     install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/"
-    install -Dm644 CHANGELOG.md "$pkgdir/usr/share/doc/$pkgname/"
-    install -Dm644 CONTRIBUTING.md "$pkgdir/usr/share/doc/$pkgname/"
-    install -Dm644 CODE_OF_CONDUCT.md "$pkgdir/usr/share/doc/$pkgname/"
+    install -Dm644 docs/CHANGELOG.md "$pkgdir/usr/share/doc/$pkgname/"
+    install -Dm644 docs/CONTRIBUTING.md "$pkgdir/usr/share/doc/$pkgname/"
+    install -Dm644 docs/CODE_OF_CONDUCT.md "$pkgdir/usr/share/doc/$pkgname/"
     
     # Install license
     install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
@@ -51,15 +51,11 @@ exec python index.py "$@"
 EOF
     chmod +x "$pkgdir/usr/bin/$pkgname"
     
-    # Install desktop entry (will be created separately)
-    if [ -f "$pkgname.desktop" ]; then
-        install -Dm644 "$pkgname.desktop" "$pkgdir/usr/share/applications/"
-    fi
+    # Install desktop entry
+    install -Dm644 packaging/archmie.desktop "$pkgdir/usr/share/applications/"
     
-    # Install icon (will be created separately)  
-    if [ -f "$pkgname.png" ]; then
-        install -Dm644 "$pkgname.png" "$pkgdir/usr/share/pixmaps/"
-    fi
+    # Install icon
+    install -Dm644 assets/archmie.png "$pkgdir/usr/share/pixmaps/"
 }
 
 # vim:set ts=2 sw=2 et:

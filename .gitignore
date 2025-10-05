@@ -3,6 +3,8 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+*.py[cod]
+*$py.class
 
 # === Page Cache Files === #
 pages/__pycache__/
@@ -16,8 +18,11 @@ commands.json
 # === Application Logs === #
 archMIE.log
 
-# === User Saved Commands === #
-commands.json
+# === Temporary Files === #
+*.tmp
+*.temp
+*.bak
+*.backup
 
 # === IDE Files === #
 .vscode/
