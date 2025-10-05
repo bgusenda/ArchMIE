@@ -91,6 +91,10 @@ cd ArchMIE-main
 python index.py
 ```
 
+<div align="right">
+<a href="#-archmie---arch-linux-make-it-easy">⬆️ Back to Top</a>
+</div>
+
 ---
 
 ## 🚀 Usage
@@ -122,6 +126,10 @@ python index.py
 4. Confirm execution in the dialog
 5. View results and logs
 
+<div align="right">
+<a href="#-archmie---arch-linux-make-it-easy">⬆️ Back to Top</a>
+</div>
+
 ---
 
 ## 📸 Screenshots
@@ -141,6 +149,10 @@ python index.py
 ### 🎨 Theme Customization
 *Light/Dark modes with custom accent colors*
 <img src="./assets/settingsthemepage.png"/>
+
+<div align="right">
+<a href="#-archmie---arch-linux-make-it-easy">⬆️ Back to Top</a>
+</div>
 
 ---
 
@@ -192,6 +204,10 @@ ArchMIE comes with useful pre-configured commands:
 - **List Installed** - `pacman -Q`
 - **Search Package** - `pacman -Ss {search_term}`
 
+<div align="right">
+<a href="#-archmie---arch-linux-make-it-easy">⬆️ Back to Top</a>
+</div>
+
 ---
 
 ## 🔒 Security
@@ -229,7 +245,15 @@ ArchMIE comes with useful pre-configured commands:
 [2025-10-05 14:30:25] SUCCESS: Command Execution
   Command: sudo pacman -Syu
   Details: Exit code: 0
+```
 --------------------------------------------------
+```
+
+<div align="right">
+<a href="#-archmie---arch-linux-make-it-easy">⬆️ Back to Top</a>
+</div>
+
+---
 ```
 
 ---
@@ -257,6 +281,10 @@ ArchMIE comes with useful pre-configured commands:
 4. Confirm export success
 ```
 
+<div align="right">
+<a href="#-archmie---arch-linux-make-it-easy">⬆️ Back to Top</a>
+</div>
+
 ---
 
 ## 🎨 Theming
@@ -277,6 +305,10 @@ ArchMIE comes with useful pre-configured commands:
 - **📄 theme.json** - Stores user preferences
 - **🔧 JSON Format** - Easy to edit manually if needed
 - **🛡️ Git Ignored** - Personal preferences not tracked
+
+<div align="right">
+<a href="#-archmie---arch-linux-make-it-easy">⬆️ Back to Top</a>
+</div>
 
 ---
 
@@ -303,6 +335,10 @@ ArchMIE comes with comprehensive documentation to help you get started and contr
 - **[PKGBUILD](packaging/PKGBUILD)** - Arch Linux package build script
 - **[Desktop Entry](packaging/archmie.desktop)** - System integration file
 - **[Assets](assets/)** - Icons and visual resources
+
+<div align="right">
+<a href="#-archmie---arch-linux-make-it-easy">⬆️ Back to Top</a>
+</div>
 
 ---
 
@@ -338,6 +374,10 @@ cd ArchMIE
 python index.py  # Test your changes
 ```
 
+<div align="right">
+<a href="#-archmie---arch-linux-make-it-easy">⬆️ Back to Top</a>
+</div>
+
 ---
 
 ## 📜 License
@@ -361,6 +401,10 @@ This is a **copyleft** license, which means:
 - **🔄 Share-alike** - Derivative works must use the same license
 - **📖 Source disclosure** - Source code must be made available
 - **🛡️ Freedom preservation** - Ensures software remains free and open
+
+<div align="right">
+<a href="#-archmie---arch-linux-make-it-easy">⬆️ Back to Top</a>
+</div>
 
 ---
 
@@ -426,6 +470,10 @@ ls -la ArchMIE/
 | **Memory** | 50MB+ | Minimal resource usage |
 | **Storage** | 5MB+ | Application + logs |
 
+<div align="right">
+<a href="#-archmie---arch-linux-make-it-easy">⬆️ Back to Top</a>
+</div>
+
 ---
 
 ## 🌟 Acknowledgments
@@ -434,6 +482,10 @@ ls -la ArchMIE/
 - **🐍 Python Tkinter** - For the GUI framework
 - **👥 Contributors** - Everyone who helps improve this project
 - **💡 Users** - For feedback and feature suggestions
+
+<div align="right">
+<a href="#-archmie---arch-linux-make-it-easy">⬆️ Back to Top</a>
+</div>
 
 ---
 
