@@ -128,15 +128,19 @@ python index.py
 
 ### 🏠 Main Interface
 *Clean, modern homepage with easy navigation*
+<img src="./assets/mainpage.png"/>
 
 ### 📋 Command Management
 *Organize and execute system commands with ease*
+<img src="./assets/commandspage.png"/>
 
 ### ⚙️ Settings Panel
 *Tabbed interface for themes, logs, and data management*
+<img src="./assets/settingscommandspage.png"/>
 
 ### 🎨 Theme Customization
 *Light/Dark modes with custom accent colors*
+<img src="./assets/settingsthemepage.png"/>
 
 ---
 
@@ -437,8 +441,8 @@ ls -la ArchMIE/
 
 **⭐ If you find ArchMIE useful, please star this repository! ⭐**
 
-Made with ❤️ for the Arch Linux community
+Made with GAY❤️ for the Arch Linux community
 
-[⬆️ Back to Top](#-archmie---arch-linux-management-interface--environment)
+[⬆️ Back to Top](#-archmie---arch-linux-"make-it-easy")
 
 </div>
