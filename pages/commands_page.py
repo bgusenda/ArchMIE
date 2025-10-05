@@ -1,10 +1,11 @@
 # pages/commands_page.py
 # === Imports === #
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, filedialog
 import json
 import subprocess
 from pathlib import Path
+from utils import PasswordDialog, log_action, execute_secure_command, export_commands, import_commands
 
 # === Commands Page Class === #
 class CommandsPage(tk.Frame):
@@ -418,45 +419,85 @@ class CommandsPage(tk.Frame):
         # Validation
         if not command_to_run:
             messagebox.showwarning("Warning", "No command to execute!")
+            log_action("Command Execution", "failed", "No command provided")
             return
         
         if not self.system_var.get() and not self.user_var.get():
             messagebox.showwarning("Warning", "Please select execution scope (System or User)!")
+            log_action("Command Execution", "failed", "No execution scope selected")
             return
 
         # Prepare command
         final_command = command_to_run
+        password = None
+        
         if self.system_var.get() and not final_command.startswith("sudo"):
             final_command = "sudo " + final_command
+        
+        # Get password if needed for sudo commands
+        if final_command.startswith("sudo"):
+            password_dialog = PasswordDialog(self, "Administrator Password Required")
+            password = password_dialog.get_password()
+            
+            if password is None:
+                log_action("Command Execution", "cancelled", "User cancelled password dialog", final_command)
+                return
+            
+            if not password.strip():
+                messagebox.showwarning("Warning", "Password cannot be empty!")
+                log_action("Command Execution", "failed", "Empty password provided", final_command)
+                return
 
         # Confirmation dialog
         if not messagebox.askyesno(
             "Confirm Execution", 
             f"Execute command:\n\n{final_command}\n\nContinue?"
         ):
+            log_action("Command Execution", "cancelled", "User cancelled execution", final_command)
             return
 
         try:
             # Execute command
-            result = subprocess.run(
-                final_command, 
-                shell=True, 
-                capture_output=True, 
-                text=True, 
-                timeout=30
-            )
+            result = execute_secure_command(final_command, password, timeout=30)
             
             if result.returncode == 0:
                 messagebox.showinfo("Success", "Command executed successfully!")
+                log_action("Command Execution", "success", f"Exit code: {result.returncode}", final_command)
+                
                 if result.stdout:
-                    messagebox.showinfo("Output", result.stdout[:500])  # Show first 500 chars
+                    # Show output in a separate dialog
+                    output_dialog = tk.Toplevel(self)
+                    output_dialog.title("Command Output")
+                    output_dialog.geometry("600x400")
+                    output_dialog.configure(bg=self.theme["bg_color"])
+                    
+                    text_widget = tk.Text(
+                        output_dialog,
+                        bg=self.theme["button_color"],
+                        fg=self.theme["text_color"],
+                        font=("Consolas", 10),
+                        wrap=tk.WORD
+                    )
+                    text_widget.pack(fill="both", expand=True, padx=10, pady=10)
+                    text_widget.insert("1.0", result.stdout)
+                    text_widget.config(state="disabled")
+                    
+                    # Log the output (first 200 chars)
+                    output_preview = result.stdout[:200] + ("..." if len(result.stdout) > 200 else "")
+                    log_action("Command Output", "info", output_preview, final_command)
             else:
-                messagebox.showerror("Error", f"Command failed:\n{result.stderr}")
+                error_msg = result.stderr if result.stderr else f"Command failed with exit code {result.returncode}"
+                messagebox.showerror("Error", f"Command failed:\n{error_msg}")
+                log_action("Command Execution", "error", f"Exit code: {result.returncode}, Error: {error_msg}", final_command)
                 
         except subprocess.TimeoutExpired:
-            messagebox.showerror("Error", "Command timed out (30s limit)")
+            error_msg = "Command timed out (30s limit)"
+            messagebox.showerror("Error", error_msg)
+            log_action("Command Execution", "error", error_msg, final_command)
         except Exception as e:
-            messagebox.showerror("Error", f"Failed to execute command:\n{str(e)}")
+            error_msg = f"Failed to execute command: {str(e)}"
+            messagebox.showerror("Error", error_msg)
+            log_action("Command Execution", "error", error_msg, final_command)
 
     def back_to_home(self):
         """Return to the homepage"""

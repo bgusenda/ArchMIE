@@ -1,0 +1,35 @@
+# === Python Cache Files === #
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# === Page Cache Files === #
+pages/__pycache__/
+
+# === User Theme Configuration === #
+theme.json
+
+# === User Saved Commands === #
+commands.json
+
+# === Application Logs === #
+archMIE.log
+
+# === User Saved Commands === #
+commands.json
+
+# === IDE Files === #
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# === OS Files === #
+.DS_Store
+Thumbs.db
+
+# === Virtual Environment === #
+venv/
+env/
+.env

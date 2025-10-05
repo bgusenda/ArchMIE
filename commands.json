@@ -1,18 +1,22 @@
 [
     {
-        "name": "Atualizar Sistema",
+        "name": "Update System",
         "command": "sudo pacman -Syu"
     },
     {
-        "name": "Instalar Pacote",
-        "command": "sudo pacman -S {pacote}"
+        "name": "Install Package",
+        "command": "sudo pacman -S {package}"
     },
     {
-        "name": "Remover Pacote",
-        "command": "sudo pacman -R {pacote}"
+        "name": "Remove Package",
+        "command": "sudo pacman -R {package}"
     },
     {
-        "name": "Checar versao pnpm",
-        "command": "pnpm --version"
+        "name": "List Installed Packages",
+        "command": "pacman -Q"
+    },
+    {
+        "name": "Search Package",
+        "command": "pacman -Ss {search_term}"
     }
 ]

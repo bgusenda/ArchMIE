@@ -1,0 +1,65 @@
+# Maintainer: Your Name <your.email@example.com>
+pkgname=archmie
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Arch Linux Management Interface & Environment - A modern GUI for managing Arch Linux system commands"
+arch=('any')
+url="https://github.com/bgusenda/ArchMIE"
+license=('GPL3')
+depends=('python' 'tk')
+makedepends=('git')
+optdepends=(
+    'sudo: for system-level command execution'
+    'pacman: for package management commands'
+)
+source=("$pkgname-$pkgver.tar.gz::https://github.com/bgusenda/ArchMIE/archive/v$pkgver.tar.gz")
+sha256sums=('SKIP')  # Replace with actual checksum when creating release
+
+package() {
+    cd "$srcdir/ArchMIE-$pkgver"
+    
+    # Create directories
+    install -dm755 "$pkgdir/usr/share/$pkgname"
+    install -dm755 "$pkgdir/usr/bin"
+    install -dm755 "$pkgdir/usr/share/applications"
+    install -dm755 "$pkgdir/usr/share/pixmaps"
+    install -dm755 "$pkgdir/usr/share/doc/$pkgname"
+    
+    # Install Python files
+    install -Dm644 index.py "$pkgdir/usr/share/$pkgname/"
+    install -Dm644 utils.py "$pkgdir/usr/share/$pkgname/"
+    install -Dm644 theme_variables.py "$pkgdir/usr/share/$pkgname/"
+    
+    # Install pages
+    install -dm755 "$pkgdir/usr/share/$pkgname/pages"
+    install -Dm644 pages/*.py "$pkgdir/usr/share/$pkgname/pages/"
+    
+    # Install documentation
+    install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/"
+    install -Dm644 CHANGELOG.md "$pkgdir/usr/share/doc/$pkgname/"
+    install -Dm644 CONTRIBUTING.md "$pkgdir/usr/share/doc/$pkgname/"
+    install -Dm644 CODE_OF_CONDUCT.md "$pkgdir/usr/share/doc/$pkgname/"
+    
+    # Install license
+    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    
+    # Create launcher script
+    cat > "$pkgdir/usr/bin/$pkgname" << 'EOF'
+#!/bin/bash
+cd /usr/share/archmie
+exec python index.py "$@"
+EOF
+    chmod +x "$pkgdir/usr/bin/$pkgname"
+    
+    # Install desktop entry (will be created separately)
+    if [ -f "$pkgname.desktop" ]; then
+        install -Dm644 "$pkgname.desktop" "$pkgdir/usr/share/applications/"
+    fi
+    
+    # Install icon (will be created separately)  
+    if [ -f "$pkgname.png" ]; then
+        install -Dm644 "$pkgname.png" "$pkgdir/usr/share/pixmaps/"
+    fi
+}
+
+# vim:set ts=2 sw=2 et:

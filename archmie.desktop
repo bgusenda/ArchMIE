@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=ArchMIE
+Comment=Arch Linux Management Interface & Environment
+Comment[pt_BR]=Interface e Ambiente de Gerenciamento do Arch Linux
+GenericName=System Management Tool
+GenericName[pt_BR]=Ferramenta de Gerenciamento do Sistema
+Exec=archmie
+Icon=archmie
+StartupNotify=true
+NoDisplay=false
+Categories=System;Settings;PackageManager;
+Keywords=arch;linux;package;management;system;commands;terminal;gui;
+MimeType=application/json;

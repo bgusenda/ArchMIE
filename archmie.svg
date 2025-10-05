@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="64" cy="64" r="60" fill="#1793d1" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Arch Linux Symbol (simplified) -->
+  <path d="M64 20 L44 84 L52 84 L58 68 L70 68 L76 84 L84 84 Z" fill="#ffffff"/>
+  <path d="M61 52 L67 52 L70 60 L58 60 Z" fill="#1793d1"/>
+  
+  <!-- Terminal/Command Lines -->
+  <rect x="32" y="96" width="64" height="3" rx="1.5" fill="#ffffff"/>
+  <rect x="40" y="102" width="48" height="2" rx="1" fill="#ffffff" opacity="0.8"/>
+  <rect x="48" y="107" width="32" height="2" rx="1" fill="#ffffff" opacity="0.6"/>
+  
+  <!-- Decorative Elements -->
+  <circle cx="24" cy="32" r="3" fill="#ffffff" opacity="0.3"/>
+  <circle cx="104" cy="40" r="2" fill="#ffffff" opacity="0.4"/>
+  <circle cx="112" cy="88" r="2.5" fill="#ffffff" opacity="0.3"/>
+  <circle cx="16" cy="96" r="2" fill="#ffffff" opacity="0.4"/>
+</svg>

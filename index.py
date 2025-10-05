@@ -82,7 +82,7 @@ class App(tk.Tk): # Main window
             fg="white",
             font=("Segoe UI", 12, "bold"),
             relief="flat",
-            padx=20, pady=10,
+            padx=40, pady=10,
             command=self.show_commands
         )
         btn_commands.pack(pady=10)
@@ -94,10 +94,22 @@ class App(tk.Tk): # Main window
             fg=self.theme["text_color"],
             font=("Segoe UI", 12),
             relief="flat",
-            padx=20, pady=10,
+            padx=70, pady=10,
             command=self.show_settings
         )
         btn_settings.pack(pady=10)
+
+        btn_exit = tk.Button(
+            self.main_frame,
+            text="Exit",
+            bg=self.theme["button_color"],
+            fg=self.theme["text_color"],
+            font=("Segoe UI", 12),
+            relief="flat",
+            padx=87, pady=10,
+            command=self.destroy
+        )
+        btn_exit.pack(pady=10)
 
     def show_commands(self):
         for widget in self.main_frame.winfo_children():
