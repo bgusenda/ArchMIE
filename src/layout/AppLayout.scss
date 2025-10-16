@@ -1,0 +1,326 @@
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: var(--text);
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+            radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%);
+        pointer-events: none;
+    }
+}
+
+.sidebar {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
+        0 25px 50px -12px rgba(0, 0, 0, 0.25),
+        inset 1px 0 0 rgba(255, 255, 255, 0.1);
+    overflow: visible;
+    position: relative;
+    z-index: 10;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.05) 0%,
+                rgba(255, 255, 255, 0.02) 100%);
+        pointer-events: none;
+    }
+}
+
+.sidebar.open {
+    width: 280px;
+}
+
+.sidebar.closed {
+    width: 80px;
+}
+
+.sidebar__toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: inherit;
+    cursor: pointer;
+    padding: 0.75rem;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transition: left 0.6s ease;
+    }
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
+        transform: translateX(5px);
+
+        &::before {
+            left: 100%;
+        }
+    }
+
+    svg {
+        transition: transform 0.3s ease;
+    }
+
+    &:hover svg {
+        transform: rotate(180deg);
+    }
+}
+
+.sidebar__brand {
+    font-size: 1.25rem;
+    background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+}
+
+.sidebar__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sidebar__link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1rem;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid transparent;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transition: left 0.6s ease;
+    }
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateX(8px);
+
+        &::before {
+            left: 100%;
+        }
+
+        .sidebar__link-icon {
+            transform: scale(1.1);
+        }
+    }
+
+    &.active {
+        background: var(--accent);
+        color: #000;
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow:
+            0 10px 25px -5px rgba(0, 0, 0, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+        .sidebar__link-icon {
+            transform: scale(1.1);
+        }
+    }
+}
+
+.sidebar__link-icon {
+    display: flex;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+.sidebar__link-text {
+    font-weight: 600;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.sidebar__link-badge {
+    margin-left: auto;
+    background: rgba(255, 255, 255, 0.2);
+    color: inherit;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.sidebar__link.active .sidebar__link-badge {
+    background: rgba(0, 0, 0, 0.2);
+    color: #000;
+}
+
+.app-layout__main {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    position: relative;
+    z-index: 1;
+
+    @media (min-width: 768px) {
+        padding: 3rem;
+    }
+}// ...existing code...
+.sidebar__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* footer com o botão Sair */
+.sidebar__footer {
+    display: flex;
+    align-items: center;
+    padding-top: 1rem;
+}
+
+.sidebar__logout {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    border-radius: 0.9rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sidebar__logout:hover {
+    transform: translateX(6px);
+    background: rgba(255,255,255,0.09);
+}
+
+.sidebar__logout svg {
+    flex-shrink: 0;
+}
+
+.sidebar__logout-text {
+    font-weight: 700;
+}
+
+// Animações para os itens da sidebar
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.sidebar__link {
+    animation: slideInLeft 0.6s ease forwards;
+
+    @for $i from 1 through 10 {
+        &:nth-child(#{$i}) {
+            animation-delay: #{$i * 0.1}s;
+        }
+    }
+}
+
+// Efeito de partículas no background (opcional)
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+
+    @for $i from 1 through 15 {
+        &:nth-child(#{$i}) {
+            $size: random(20) + 5 + px;
+            width: $size;
+            height: $size;
+            top: random(100);
+            left: random(100);
+            animation-delay: random(6) + s;
+            animation-duration: random(10) + 10 + s;
+        }
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(random(100) - 50 + px, random(100) - 50 + px) rotate(90deg);
+    }
+
+    50% {
+        transform: translate(random(100) - 50 + px, random(100) - 50 + px) rotate(180deg);
+    }
+
+    75% {
+        transform: translate(random(100) - 50 + px, random(100) - 50 + px) rotate(270deg);
+    }
+}

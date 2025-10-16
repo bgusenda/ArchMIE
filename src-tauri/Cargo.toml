@@ -1,0 +1,22 @@
+# src-tauri/Cargo.toml
+[package]
+name = "archmie"
+version = "0.1.0"
+description = "ArchMIE - Arch Linux Command Manager"
+authors = ["bgusen"]
+default-run = "archmie"
+edition = "2021"
+rust-version = "1.60"
+
+[build-dependencies]
+tauri-build = { version = "2.0", features = [] }
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tauri = { version = "2.0", features = [] }
+dirs = "5.0"
+
+[features]
+default = [ "custom-protocol" ]
+custom-protocol = [ "tauri/custom-protocol" ]
