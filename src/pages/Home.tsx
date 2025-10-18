@@ -1,5 +1,5 @@
 import { ArrowRight, Terminal, Palette, Download, Upload, Shield, Zap } from "lucide-react";
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Home.scss";
 
 export default function Home() {
@@ -49,7 +49,7 @@ export default function Home() {
         { number: "v2.0", label: "Versão" }
     ];
 
-    const location = useLocation();
+    // location removed (unused)
 
     return (
         <div className="home">

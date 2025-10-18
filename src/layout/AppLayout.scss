@@ -174,8 +174,11 @@
 
 .sidebar__link-icon {
     display: flex;
+    justify-content: center;
+    align-items: center;
     transition: transform 0.3s ease;
     flex-shrink: 0;
+    margin-left: -4px;
 }
 
 .sidebar__link-text {
@@ -211,7 +214,9 @@
     @media (min-width: 768px) {
         padding: 3rem;
     }
-}// ...existing code...
+}
+
+// ...existing code...
 .sidebar__nav {
     display: flex;
     flex-direction: column;
@@ -232,8 +237,8 @@
     width: 100%;
     padding: 0.65rem 0.9rem;
     border-radius: 0.9rem;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     color: inherit;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -241,7 +246,7 @@
 
 .sidebar__logout:hover {
     transform: translateX(6px);
-    background: rgba(255,255,255,0.09);
+    background: rgba(255, 255, 255, 0.09);
 }
 
 .sidebar__logout svg {

@@ -2,7 +2,7 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Home, Settings, Menu, Terminal, LogOut } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { getCurrentWindow } from "@tauri-apps/api/window"; // opcional fallback
+import { getCurrentWindow } from "@tauri-apps/api/window"; // optional fallback when running in Tauri
 import { invoke } from "@tauri-apps/api/core";
 import "./AppLayout.scss";
 
@@ -49,8 +49,8 @@ export default function AppLayout() {
             try {
                 const win = getCurrentWindow();
                 await win.close();
-            } catch (e2) {
-                try { window.close(); } catch {}
+            } catch {
+                try { window.close(); } catch (e3) { console.warn('window.close fallback falhou', e3); }
             }
         }
     };

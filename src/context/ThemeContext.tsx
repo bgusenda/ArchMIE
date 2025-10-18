@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 
@@ -20,13 +21,14 @@ interface ThemeContextType {
     importThemeConfig: (json: string) => void;
 }
 
-const defaulThemeConfig: ThemeConfig = {
+const defaultThemeConfig: ThemeConfig = {
     primary: "#2a2a2a",
     secondary: "#545454",
     accent: "#5ce1e6",
     text: "#ffffff",
 };
 
+// fixed colors used by the UI; kept internal to this module
 const fixedColors = {
     "header-color": "#171717",
     "run-command-btn": "#5e17eb",
@@ -40,22 +42,43 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     const [theme, setTheme] = useState<Theme>("dark");
-    const [themeConfig, setThemeConfig] = useState<ThemeConfig>(defaulThemeConfig);
+    const [themeConfig, setThemeConfig] = useState<ThemeConfig>(defaultThemeConfig);
 
     useEffect(() => {
         const storedTheme = localStorage.getItem("theme") as Theme | null;
         const storedConfig = localStorage.getItem("themeConfig");
         if (storedTheme) setTheme(storedTheme);
-        if (storedConfig) setThemeConfig(JSON.parse(storedConfig));
+        if (storedConfig) {
+            try {
+                const parsed = JSON.parse(storedConfig) as Partial<ThemeConfig>;
+                setThemeConfig((prev) => ({ ...prev, ...parsed }));
+            } catch (err) {
+                console.warn('Failed to parse stored themeConfig', err);
+            }
+        }
     }, []);
 
     useEffect(() => {
         const root = document.documentElement;
-        Object.entries({ ...themeConfig, ...fixedColors }).forEach(([key, value]) => {
+        // Aplicar theme como atributo (útil para selectors CSS [data-theme="light"])
+        root.setAttribute("data-theme", theme);
+
+        // Mapear basicamente themeConfig + fixedColors + background fallback
+        const merged = { ...themeConfig, ...fixedColors };
+        Object.entries(merged).forEach(([key, value]) => {
             root.style.setProperty(`--${key}`, value);
         });
+
+        // garantir variáveis base usadas no CSS
+        const background = theme === "light" ? "#f7f8fb" : "#0b0b0b";
+        root.style.setProperty("--background", background);
+        root.style.setProperty("--primary", themeConfig.primary);
+        root.style.setProperty("--secondary", themeConfig.secondary);
+        root.style.setProperty("--accent", themeConfig.accent);
+        root.style.setProperty("--text", themeConfig.text);
+
         localStorage.setItem("themeConfig", JSON.stringify(themeConfig));
-    }, [themeConfig]);
+    }, [themeConfig, theme]);
 
     const toggleTheme = () => {
         const newTheme = theme === "light" ? "dark" : "light";
@@ -68,7 +91,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const resetThemeConfig = () => {
-        setThemeConfig(defaulThemeConfig);
+        setThemeConfig(defaultThemeConfig);
     };
 
     const exportThemeConfig = () => {
@@ -77,10 +100,13 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
     const importThemeConfig = (json: string) => {
         try {
-            const parsed = JSON.parse(json) as ThemeConfig;
-            setThemeConfig(parsed);
+            const parsed = JSON.parse(json) as Partial<ThemeConfig>;
+            // merge with defaults and validate keys present
+            const merged: ThemeConfig = { ...defaultThemeConfig, ...parsed };
+            setThemeConfig(merged);
         } catch (error) {
             console.error("Invalid theme config JSON: ", error);
+            throw error;
         }
     };
 

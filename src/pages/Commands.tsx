@@ -1,5 +1,5 @@
 // Commands.tsx
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { Save, Edit3, Trash2, Shield, User, X, Plus, Terminal } from "lucide-react";
 import "./Commands.scss";
@@ -52,21 +52,47 @@ export default function Commands() {
     };
   }, []);
 
-  // Carregar comandos do JSON
-  useEffect(() => {
-    loadCommands();
-  }, []);
+  // type guard to validate commands array
+  const isCommandArray = (value: unknown): value is Command[] => {
+    return Array.isArray(value) && value.every(item => typeof item === 'object' && item !== null && 'id' in item && 'command' in item);
+  };
 
-  const loadCommands = async () => {
+  // Carregar comandos do JSON com fallback para cache local
+  const loadCommands = useCallback(async () => {
     try {
-      const data: CommandData = await invoke("read_commands_file");
-      setCommands(data.commands);
+      const response = await invoke("read_commands_file") as unknown;
+      // Normalizar formatos: backend pode retornar { commands: [...] } ou array puro
+      let cmds: Command[] | null = null;
+
+      if (isCommandArray(response)) {
+        cmds = response;
+      } else if (response && typeof response === 'object' && 'commands' in (response as Record<string, unknown>)) {
+        const maybe = (response as Record<string, unknown>).commands;
+        if (isCommandArray(maybe)) cmds = maybe;
+      }
+
+      const finalCmds: Command[] = cmds ?? getDefaultCommands();
+      setCommands(cmds);
+      localStorage.setItem("archmie-commands", JSON.stringify({ commands: finalCmds }));
     } catch (error) {
       console.error("Erro ao carregar comandos:", error);
-      // Fallback para comandos padrão
+      const stored = localStorage.getItem("archmie-commands");
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored) as CommandData;
+          if (Array.isArray(parsed.commands)) {
+            setCommands(parsed.commands);
+            return;
+          }
+        } catch (e) {
+          console.error("Erro ao parsear cache local:", e);
+        }
+      }
       setCommands(getDefaultCommands());
     }
-  };
+  }, []);
+
+  useEffect(() => { loadCommands(); }, [loadCommands]);
 
   const getDefaultCommands = (): Command[] => [
     {
@@ -127,33 +153,37 @@ export default function Commands() {
 
   const saveCommands = async (updatedCommands: Command[]) => {
     try {
-      await invoke("write_commands_file", {
-        data: { commands: updatedCommands }
-      });
+      await invoke("write_commands_file", { commands: updatedCommands });
       setCommands(updatedCommands);
+      localStorage.setItem("archmie-commands", JSON.stringify({ commands: updatedCommands }));
     } catch (error) {
-      console.error("Erro ao salvar comandos:", error);
-      // Fallback para localStorage
-      localStorage.setItem('archmie-commands', JSON.stringify({ commands: updatedCommands }));
+      console.error("Erro ao salvar comandos (fallback local):", error);
+      localStorage.setItem("archmie-commands", JSON.stringify({ commands: updatedCommands }));
+      setCommands(updatedCommands);
     }
   };
 
   const executeCommand = async (command: string, isAdmin: boolean) => {
-  setIsLoading(true);
-  setOutput("Executando comando...");
+    setIsLoading(true);
+    setOutput("Executando comando...");
 
-  try {
-    const result: string = await invoke("execute_command", {
-      command,
-      isAdmin: isAdmin  // ← Mude para is_admin (igual ao Rust)
-    });
-    setOutput(result);
-  } catch (error) {
-    setOutput(`Erro ao executar comando: ${error}`);
-  } finally {
-    setIsLoading(false);
-  }
-};
+    try {
+      const result = await invoke("execute_command", {
+        command,
+        // enviar snake_case para compatibilidade com bindings Rust/Tauri
+        is_admin: isAdmin,
+      } as Record<string, unknown>);
+
+      // normalize response
+      const out = typeof result === "string" ? result : JSON.stringify(result, null, 2);
+      setOutput(out);
+    } catch (error) {
+      console.error("Erro executeCommand:", error);
+      setOutput(`Erro ao executar comando: ${String(error)}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // Adicionei esta nova função
   const openInTerminal = async (command: string) => {

@@ -1,22 +1,25 @@
+:root{
+  --primary: #111827;
+  --secondary: #0b1220;
+  --accent: #5ce1e6;
+  --text: #ffffff;
+  --background: #0b0b0b;
+  /* additional fallbacks used across components */
+  --radius-lg: 1.5rem;
+  --radius-md: 1rem;
+  --glass-bg: rgba(255,255,255,0.06);
+  --glass-strong: rgba(255,255,255,0.1);
+  --code-bg: rgba(0,0,0,0.35);
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-* {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-}
+* { margin:0; padding:0; box-sizing:border-box; font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+html,body,#root { height:100%; background: var(--background); color: var(--text); }
 
-button {
-    border: none;
-}
+button { border: none; cursor: pointer; }
 
-.custom {
-    background-color: var(--background);
-    color: var(--text);
-}
-
-.custom .primary {
-    color: var(--primary);
-}
+.custom { background-color: var(--background); color: var(--text); }
+.custom .primary { color: var(--primary); }
